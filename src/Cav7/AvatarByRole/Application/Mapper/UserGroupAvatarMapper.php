@@ -10,7 +10,6 @@ class UserGroupAvatarMapper
     protected const DEFAULT_AVATAR = '/styles/default/xenforo/avatars/default-avatar.png';
 
     protected const SUFFIX_GROUPS = [
-        'Mourning',
         'Retired',
         'Recruiter',
     ];
