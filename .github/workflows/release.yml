@@ -1,0 +1,28 @@
+name: Release Addon
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Cav7 zip (no src/ in archive)
+        run: |
+          tag="${GITHUB_REF_NAME}"
+          git archive --format=zip --prefix=Cav7/ "${tag}":src/Cav7 > "Cav7-AvatarByRole-${tag}.zip"
+          sha256sum "Cav7-AvatarByRole-${tag}.zip" > "Cav7-AvatarByRole-${tag}.zip.sha256"
+
+      - name: Create GitHub Release + upload assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            Cav7-AvatarByRole-*.zip
+            Cav7-AvatarByRole-*.zip.sha256
