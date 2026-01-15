@@ -2,9 +2,10 @@
 
 namespace Cav7\AvatarByRole\Infrastructure\Xenforo\Template;
 
+use Cav7\AvatarByRole\Application\Config\MourningConfig;
+use Cav7\AvatarByRole\Application\Mapper\UserGroupAvatarMapper;
 use XF\Container;
 use XF\Template\Templater;
-use Cav7\AvatarByRole\Application\Mapper\UserGroupAvatarMapper;
 
 class TemplateOverrides
 {
@@ -25,6 +26,11 @@ class TemplateOverrides
         }
 
         $imgSrc = UserGroupAvatarMapper::getAvatarForGroupIds($primary, $secondary);
+
+        $mourning = new MourningConfig();
+        if ($mourning->isActiveAt()) {
+            $imgSrc = $mourning->applyVariantIfExists($imgSrc);
+        }
 
         error_log("Resolved avatar path: $imgSrc");
 
