@@ -1,4 +1,4 @@
-name: Release Addon
+name: Build XenForo add-on zip
 
 on:
   push:
@@ -13,11 +13,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # needed so tags exist locally
 
-      - name: Build Cav7 zip (no src/ in archive)
+      - name: Build XenForo add-on zip
         run: |
           tag="${GITHUB_REF_NAME}"
-          git archive --format=zip --prefix=Cav7/ "${tag}":src/Cav7 > "Cav7-AvatarByRole-${tag}.zip"
+
+          git archive \
+            --format=zip \
+            --prefix="src/addons/Cav7/AvatarByRole/" \
+            "${tag}" \
+            "src/Cav7/AvatarByRole" \
+            > "Cav7-AvatarByRole-${tag}.zip"
+
           sha256sum "Cav7-AvatarByRole-${tag}.zip" > "Cav7-AvatarByRole-${tag}.zip.sha256"
 
       - name: Create GitHub Release + upload assets
