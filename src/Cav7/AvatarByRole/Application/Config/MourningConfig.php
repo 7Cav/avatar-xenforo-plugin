@@ -10,6 +10,13 @@ final class MourningConfig
 {
     public function enabled(): bool
     {
+        $user = \XF::visitor();
+        $optedOut = !empty($user->Profile->custom_fields['cav7_opt_out_mourning']);
+
+        if ($optedOut) {
+            return false;
+        }
+
         return (bool) XF::options()->cav7AbrMourningActive;
     }
 

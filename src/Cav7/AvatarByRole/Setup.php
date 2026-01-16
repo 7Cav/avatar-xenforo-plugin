@@ -15,6 +15,21 @@ class Setup extends AbstractSetup
 
     public function install(array $stepParams = [])
     {
+        $this->createUserField('cav7_opt_out_mourning', [
+            'display_group'       => 'preferences',
+            'display_order'       => 100,
+            'field_type'          => 'checkbox',
+            'match_type'          => 'none',
+            'max_length'          => 0,
+            'required'            => false,
+            'show_registration'   => false,
+            'user_editable'       => 'yes',
+            'viewable_profile'    => false,
+            'viewable_message'    => false,
+            'moderator_editable'  => false,
+            'field_choices'      => ['1' => 'Yes'],
+        ]);
+
         $sourceDir = $this->addOn->getAddOnDirectory() . '/Resources/images';
         $destDir = \XF::getRootDirectory() . '/styles/default/xenforo/avatars';
 
@@ -39,6 +54,8 @@ class Setup extends AbstractSetup
 
     public function uninstall(array $stepParams = [])
     {
+        $this->deleteUserField('cav7_opt_out_mourning');
+
         $destDir = \XF::getRootDirectory() . '/styles/default/xenforo/avatars';
 
         if (is_dir($destDir)) {
@@ -49,6 +66,34 @@ class Setup extends AbstractSetup
                 }
             }
             rmdir($destDir);
+        }
+    }
+
+    protected function createUserField(string $fieldId, array $config): void
+    {
+        $em = $this->app->em();
+
+        if ($em->find('XF:UserField', $fieldId)) {
+            return;
+        }
+
+        $field = $em->create('XF:UserField');
+        $field->field_id = $fieldId;
+
+        foreach ($config as $k => $v) {
+            $field->{$k} = $v;
+        }
+
+        $field->save();
+    }
+
+    protected function deleteUserField(string $fieldId): void
+    {
+        $em = $this->app->em();
+
+        $field = $em->find('XF:UserField', $fieldId);
+        if ($field) {
+            $field->delete();
         }
     }
 }

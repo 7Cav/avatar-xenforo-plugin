@@ -19,4 +19,13 @@
 
   <phrase title="option_explain.cav7AbrMourningEnd" version_id="1000010" version_string="1.0.0"><![CDATA[Any strtotime-compatible value. Empty = no end limit.]]></phrase>
 
+<!-- User field group -->
+  <phrase title="user_field_group.cav7AvatarByRole" version_id="1000010" version_string="1.0.0"><![CDATA[Avatar Settings]]></phrase>
+
+  <phrase title="user_field_group_desc.cav7AvatarByRole" version_id="1000010" version_string="1.0.0"><![CDATA[Configure your avatar preferences]]></phrase>
+
+  <!-- User field -->
+  <phrase title="user_field_title.cav7_opt_out_mourning" version_id="1000010" version_string="1.0.0"><![CDATA[Opt out of mourning avatars]]></phrase>
+
+  <phrase title="user_field_desc.cav7_opt_out_mourning" version_id="1000010" version_string="1.0.0"><![CDATA[Check this to keep your regular avatar during mourning periods]]></phrase>
 </phrases>
