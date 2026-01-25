@@ -8,7 +8,15 @@
     "namespace": "Cav7\\AvatarByRole",
     "setup": "Cav7\\AvatarByRole\\Setup",
     "extensions": {
-        "XF\\Entity\\User": "Cav7\\AvatarByRole\\Infrastructure\\Xenforo\\Entity\\User"
+        "XF\\Entity\\User": [
+            "Cav7\\AvatarByRole\\Infrastructure\\Xenforo\\Entity\\User"
+        ],
+        "XF\\Pub\\Controller\\Account": [
+            "Cav7\\AvatarByRole\\Infrastructure\\Xenforo\\Pub\\Controller\\Account"
+        ],
+        "XF\\Service\\User\\Avatar": [
+            "Cav7\\AvatarByRole\\Infrastructure\\Xenforo\\Service\\User\\Avatar"
+        ]
     },
     "license": "MIT"
 }

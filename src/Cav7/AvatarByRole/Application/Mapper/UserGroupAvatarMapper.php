@@ -7,7 +7,7 @@ use Cav7\AvatarByRole\Application\Config\AvatarGroup;
 
 class UserGroupAvatarMapper
 {
-    protected const DEFAULT_AVATAR = '/styles/default/xenforo/avatars/default-avatar.png';
+    public const DEFAULT_AVATAR = '/styles/default/xenforo/avatars/default-avatar.png';
 
     protected const SUFFIX_GROUPS = [
         'Retired',

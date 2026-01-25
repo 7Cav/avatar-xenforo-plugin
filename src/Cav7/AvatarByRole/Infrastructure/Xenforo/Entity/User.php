@@ -2,17 +2,18 @@
 
 namespace Cav7\AvatarByRole\Infrastructure\Xenforo\Entity;
 
-use XF\Entity\User as XFUser;
 
-class User extends XFUser
+class User extends XFCP_User
 {
-    public function canUploadAvatar()
+    public function canUploadAvatar(&$error = null): bool
     {
+        $error = \XF::phrase('no_permission');
         return false;
     }
 
-    public function canDeleteAvatar()
+    public function canDeleteAvatar(&$error = null): bool
     {
+        $error = \XF::phrase('no_permission');
         return false;
     }
 }
