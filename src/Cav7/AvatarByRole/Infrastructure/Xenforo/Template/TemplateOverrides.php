@@ -30,15 +30,6 @@ class TemplateOverrides
             $attributes = array_merge($href, $attributes ?? []);
         }
 
-        $default = $templater->fnAvatar(
-            $templater,
-            $escape,
-            $user,
-            $size,
-            $canonical,
-            $attributes,
-        );
-
         $primary = $user['user_group_id'] ?? 0;
         $secondary = $user['secondary_group_ids'] ?? [];
 
