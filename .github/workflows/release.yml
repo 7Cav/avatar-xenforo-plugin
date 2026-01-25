@@ -23,8 +23,7 @@ jobs:
           git archive \
             --format=zip \
             --prefix="src/addons/Cav7/AvatarByRole/" \
-            "${tag}" \
-            "src/Cav7/AvatarByRole" \
+            "${tag}:src/Cav7/AvatarByRole/" \
             > "Cav7-AvatarByRole-${tag}.zip"
 
           sha256sum "Cav7-AvatarByRole-${tag}.zip" > "Cav7-AvatarByRole-${tag}.zip.sha256"
