@@ -11,7 +11,6 @@ class UserGroupAvatarMapper
 
     protected const SUFFIX_GROUPS = [
         'Retired',
-        'Recruiter',
     ];
 
     public static function getAvatarForGroupIds(int $primaryGroupId, array $secondaryGroupIds): string
@@ -23,10 +22,8 @@ class UserGroupAvatarMapper
         $groupIds = array_merge([$primaryGroupId], $secondaryGroupIds);
         $modifiers = [];
 
-        $reservist = AvatarConfig::findBySlug('RES');
-
-        if ($reservist && in_array($reservist->groupId, $groupIds, true)) {
-            return $reservist->imagePath;
+        if (array_intersect_assoc($groupIds, AvatarConfig::getAllRecruiterVariants())) {
+            $modifiers[] = 'Recruiter';
         }
 
         foreach (self::SUFFIX_GROUPS as $slug) {
