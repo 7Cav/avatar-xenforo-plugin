@@ -14,9 +14,30 @@ class TemplateOverrides
         $templater->addFunction('avatar', [self::class, 'customAvatar']);
     }
 
-    public static function customAvatar(Templater $templater, &$escape, $user, $size = 's', $canonical = false, $href = true)
-    {
-        $default = $templater->fnAvatar($templater, $escape, $user, $size, $canonical, $href);
+    public static function customAvatar(
+        Templater $templater,
+        &$escape,
+        $user,
+        $size = 's',
+        $canonical = false,
+        $href = '',
+    ) {
+        if (is_string($href)) {
+            $attributes = ['href' => $href];
+        }
+
+        if (is_array($href)) {
+            $attributes = array_merge($href, $attributes ?? []);
+        }
+
+        $default = $templater->fnAvatar(
+            $templater,
+            $escape,
+            $user,
+            $size,
+            $canonical,
+            $attributes,
+        );
 
         $primary = $user['user_group_id'] ?? 0;
         $secondary = $user['secondary_group_ids'] ?? [];
@@ -32,14 +53,10 @@ class TemplateOverrides
             $imgSrc = $mourning->applyVariantIfExists($imgSrc);
         }
 
-        error_log("Resolved avatar path: $imgSrc");
-
-        $modified = preg_replace(
+        return preg_replace(
             '#(<span class="avatar[^"]*"[^>]*>).*?(</span>)#is',
             '$1<img src="' . $imgSrc . '" loading="lazy" />$2',
             $default
         );
-
-        return $modified;
     }
 }
