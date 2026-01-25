@@ -22,8 +22,13 @@ class UserGroupAvatarMapper
         $groupIds = array_merge([$primaryGroupId], $secondaryGroupIds);
         $modifiers = [];
 
-        if (array_intersect_assoc($groupIds, AvatarConfig::getAllRecruiterVariants())) {
+        if (array_intersect($groupIds, AvatarConfig::getAllRecruiterVariants())) {
             $modifiers[] = 'Recruiter';
+        }
+
+        $group = AvatarConfig::findBySlug('RES');
+        if ($group && in_array($group->groupId, $groupIds, true)) {
+            return $group->imagePath;
         }
 
         foreach (self::SUFFIX_GROUPS as $slug) {
