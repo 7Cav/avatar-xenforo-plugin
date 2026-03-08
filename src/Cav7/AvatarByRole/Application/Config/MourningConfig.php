@@ -64,6 +64,16 @@ final class MourningConfig
             return $avatarWebPath;
         }
 
+        // If the avatar is a recruiter variant, we want to check for a regular mourning version of that avatar instead of a recruiter mourning version, since the recruiter mourning version doesn't exist and we don't want to force users to create it.
+        if (strpos($avatarWebPath, '_Recruiter') !== false) {
+            $mourningPath = str_replace(
+                '_Recruiter',
+                '_Mourning',
+                $avatarWebPath,
+            );
+        }
+
+
         $root = \XF::getRootDirectory(); // xenforo/ (install root)
         $fsPath = $root . $mourningPath;
 
